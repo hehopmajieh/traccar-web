@@ -96,6 +96,9 @@ public class MapPositionRenderer {
     private Map<Long, Long> deviceMap = new HashMap<Long, Long>(); // Device.id -> Position.id
     private Map<Long, Position> positionMap = new HashMap<Long, Position>(); // Position.id -> Position
 
+    private List<VectorFeature> tracks = new ArrayList<VectorFeature>();
+    private List<VectorFeature> labels = new ArrayList<VectorFeature>();
+
     private Long selectedPositionId;
     private Long selectedDeviceId;
 
@@ -131,9 +134,36 @@ public class MapPositionRenderer {
         }
     }
 
-    public void showTrack(List<Position> positions) {
-        getVectorLayer().destroyFeatures();
+    public void showDeviceName(List<Position> positions) {
+        for (VectorFeature label : labels) {
+            getVectorLayer().removeFeature(label);
+            label.destroy();
+        }
+        labels.clear();
 
+        for (Position position : positions) {
+            org.gwtopenmaps.openlayers.client.Style st = new org.gwtopenmaps.openlayers.client.Style();
+            st.setLabel(position.getDevice().getName());
+            st.setLabelXOffset(0);
+            st.setLabelYOffset(-12);
+            st.setLabelAlign("cb");
+            st.setFontColor("#0000FF");
+            st.setFontSize("12");
+            st.setFill(false);
+            st.setStroke(false);
+
+            final VectorFeature point = new VectorFeature(mapView.createPoint(position.getLongitude(), position.getLatitude()), st);
+            getVectorLayer().addFeature(point);
+            labels.add(point);
+        }
+    }
+
+    public void showTrack(List<Position> positions) {
+        for (VectorFeature track : tracks) {
+            getVectorLayer().removeFeature(track);
+            track.destroy();
+        }
+        tracks.clear();
         if (!positions.isEmpty()) {
             Point[] linePoints = new Point[positions.size()];
 
@@ -143,7 +173,9 @@ public class MapPositionRenderer {
             }
 
             LineString lineString = new LineString(linePoints);
-            getVectorLayer().addFeature(new VectorFeature(lineString));
+            VectorFeature track = new VectorFeature(lineString);
+            getVectorLayer().addFeature(track);
+            tracks.add(track);
             //mapView.getMap().zoomToExtent(lineString.getBounds());
         }
     }
