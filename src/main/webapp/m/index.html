@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>Traccar mobile</title>
+    <title>DogTracker V0.1b</title>
     <!-- Path to Framework7 Library CSS-->
     <link rel="stylesheet" href="css/framework7.min.css">
     <!-- Path to your custom app styles-->
@@ -22,7 +22,7 @@
 <!-- Left panel with reveal effect-->
 <div class="panel panel-left panel-cover">
     <div id="devicesList"></div>
-    <div class="content-block"><a href="#" id="logout" class="button button-fill color-red">Logout</a></div>
+    <div class="content-block"><a href="#" id="logout" class="button button-fill color-red">Изход</a></div>
 </div>
 <!-- Views -->
 <div class="views">
@@ -42,7 +42,7 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
 <!-- handlebars templates -->
 <script id="devices-list-template" type="text/x-handlebars-template">
-    <div class="content-block-title">Devices</div>
+    <div class="content-block-title">Устройства</div>
     <div class="list-block accordion-list">
         <ul>
             {{#each devices}}

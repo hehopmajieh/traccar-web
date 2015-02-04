@@ -94,7 +94,7 @@ myApp.onPageInit('login-screen', function (page) {
         var password = pageContainer.find('input[name="password"]').val();
 
         if (username.trim().length == 0 || password.trim().length == 0) {
-            myApp.alert("User name and password must not be empty");
+            myApp.alert("Потребителя и/или паролата не могат да бъдат празни");
             return false;
         }
 
@@ -107,7 +107,7 @@ myApp.onPageInit('login-screen', function (page) {
 
                        mainView.loadPage('pages/map.html');
                    },
-                   error: function() { myApp.alert("User name or password is invalid"); },
+                   error: function() { myApp.alert("Невалидно потребителско има или парола"); },
                    showIndicator: true });
 
         return false;
@@ -322,7 +322,7 @@ function loadDevices() {
             });
         },
         error: function() {
-            devicesList.append("Unable to load devices list");
+            devicesList.append("Списъка с устройства не може да бъде зареден !");
         }
     });
 }
@@ -331,7 +331,7 @@ function drawDeviceDetails(deviceId, position) {
     var deviceDetails = $$('#device-' + deviceId + '-details');
     if (deviceDetails != undefined) {
         if (position == undefined) {
-            deviceDetails.html('<div class="content-block">No data available</div>');
+            deviceDetails.html('<div class="content-block">Няма данни</div>');
         } else {
             var source   = $$('#device-details-template').html();
             var template = Handlebars.compile(source);
